@@ -25,9 +25,10 @@ var z=Complex(0,0),c=Complex(0.1,0.1);
 
 
 //////////julia set with golen ratio array
+///////////////////////////////////////////////////////
 (
 
-var z1,z2,c=Complex(0.1,0.1),angle1=0,angle2=90,rea2,imag2,rea1,imag1;
+var z1,z2,angle1=0,angle2=90,rea2,imag2,rea1,imag1,pl;
 
 ~z = 100.collect{
 	rea1=exp(Complex(0,1)*angle1.degrad).real;
@@ -42,10 +43,52 @@ var z1,z2,c=Complex(0.1,0.1),angle1=0,angle2=90,rea2,imag2,rea1,imag1;
  	angle2=(angle2+(360-(360/1.6180339887499))).wrap(0,360);
  	z2=Complex(rea2,imag2);
  };
+)
+////////////////////////////////////constant c
 
- 	z=(~z.pow(2)+~c);
- 	z.imag.round(0.000001);
+(
+
+var z0,angle1=0,rea1,imag1,pl=1,plane;
+
+~z = 100.collect{
+	rea1=exp(Complex(0,1)*angle1.degrad).real;
+	imag1=exp(Complex(0,1)*angle1.degrad).imag;
+	angle1=(angle1+(360-(360/1.6180339887499))).wrap(0,360);
+	z0=Complex(rea1,imag1);
+};
+
+~c = Complex(0,0.01);
+
+z=~z.[pl].pow(2).round(0.000001);
+
+ 100.do{
+	z= z+~c;
+	z.postln;
+};
 
 )
 
+/////////////////////////////////mandelbrot set with golden ratio array
+
+(
+
+var c,angle2=0,rea2,imag2,pl=2,c0;
+
+~z = Complex(0,0);
+
+~c = 100.collect{
+ 	rea2=exp(Complex(0,1)*angle2.degrad).real;
+	imag2=exp(Complex(0,1)*angle2.degrad).imag;
+ 	angle2=(angle2+(360-(360/1.6180339887499))).wrap(0,360);
+ 	c0=Complex(rea2,imag2);
+ };
+
+c=~c.[pl].pow(2).round(0.000001);
+
+100.do{
+ 	c=~z+c;
+ 	c.postln;
+}
+
+)
 
