@@ -28,7 +28,7 @@ var z=Complex(0,0),c=Complex(0.1,0.1);
 ///////////////////////////////////////////////////////
 (
 
-var z1,z2,angle1=0,angle2=90,rea2,imag2,rea1,imag1,pl;
+var z1,z2,angle1=0,angle2=0,rea2,imag2,rea1,imag1,c,pl1=0,pl2=1;
 
 ~z = 100.collect{
 	rea1=exp(Complex(0,1)*angle1.degrad).real;
@@ -43,12 +43,21 @@ var z1,z2,angle1=0,angle2=90,rea2,imag2,rea1,imag1,pl;
  	angle2=(angle2+(360-(360/1.6180339887499))).wrap(0,360);
  	z2=Complex(rea2,imag2);
  };
+
+c = ~c.[pl1].round(0.000001);
+
+z=~z.[pl2].round(0.000001);
+
+ 100.do{
+	z= z.pow(2)+c;
+	z.round(0.000001).postln;
+};
 )
 ////////////////////////////////////constant c
 
 (
 
-var z0,angle1=0,rea1,imag1,pl=1,plane;
+var z0,angle1=0,rea1,imag1,pl=3,plane;
 
 ~z = 100.collect{
 	rea1=exp(Complex(0,1)*angle1.degrad).real;
@@ -57,13 +66,13 @@ var z0,angle1=0,rea1,imag1,pl=1,plane;
 	z0=Complex(rea1,imag1);
 };
 
-~c = Complex(0,0.01);
+~c = Complex(0,0);
 
-z=~z.[pl].pow(2).round(0.000001);
+z=~z.[pl].round(0.000001);
 
  100.do{
-	z= z+~c;
-	z.postln;
+	z= z.pow(2)+~c;
+	z.round(0.000001).postln;
 };
 
 )
@@ -72,23 +81,49 @@ z=~z.[pl].pow(2).round(0.000001);
 
 (
 
-var c,angle2=0,rea2,imag2,pl=2,c0;
+var c,angle2=0,rea2,imag2,pl=4,c0;
 
-~z = Complex(0,0);
 
-~c = 100.collect{
+
+~c = 360.collect{
  	rea2=exp(Complex(0,1)*angle2.degrad).real;
 	imag2=exp(Complex(0,1)*angle2.degrad).imag;
  	angle2=(angle2+(360-(360/1.6180339887499))).wrap(0,360);
  	c0=Complex(rea2,imag2);
  };
 
-c=~c.[pl].pow(2).round(0.000001);
+c=~c.[pl];
+z=Complex(0,0);
 
-100.do{
- 	c=~z+c;
- 	c.postln;
+360.do{
+	z=z.pow(2)+c.round(0.000001);
+	z.theta.round(0.000001).postln;
 }
 
 )
 
+
+
+(
+
+var c,angle2=0,rea2,imag2,pl=4,c0;
+
+
+
+~c = 720.collect{
+ 	rea2=exp(Complex(0,1)*angle2.degrad).real;
+	imag2=exp(Complex(0,1)*angle2.degrad).imag;
+ 	angle2=(angle2+(360-(360/1.6180339887499))).wrap(0,360);
+ 	c0=Complex(rea2,imag2);
+ };
+
+z=Complex(0,0);
+
+360.do{
+	c=~c.[pl];
+	z=z.pow(2)+c;
+	z.theta.round(0.000001).postln;
+	pl=pl+1;
+}
+
+)
